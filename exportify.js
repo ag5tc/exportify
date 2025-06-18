@@ -17,7 +17,7 @@ const utils = {
 		let code_challenge = btoa(String.fromCharCode(...new Uint8Array(hashed))).replace(/=/g, '').replace(/\+/g, '-').replace(/\//g, '_')
 
 		localStorage.setItem('code_verifier', code_verifier) // save the random string secret
-		location = "https://accounts.spotify.com/authorize?client_id=e0bb387b746c4e33b73962c35e0e8c0d" +
+		location = "https://accounts.spotify.com/authorize?client_id=d99b082b01d74d61a100c9a0e056380b" +
 			"&redirect_uri=" + encodeURIComponent(location.origin + location.pathname) +
 			"&scope=playlist-read-private%20playlist-read-collaborative%20user-library-read" + // access to particular scopes of info defined here
 			"&response_type=code&code_challenge_method=S256&code_challenge=" + code_challenge
@@ -296,7 +296,7 @@ onload = async () => {
 		history.replaceState({}, '', '/') // get rid of the ugly code string from the browser bar
 
 		let response = await fetch("https://accounts.spotify.com/api/token", { method: 'POST', headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-			body: new URLSearchParams({client_id: "e0bb387b746c4e33b73962c35e0e8c0d", grant_type: 'authorization_code', code: code, redirect_uri: location.origin + location.pathname,
+			body: new URLSearchParams({client_id: "d99b082b01d74d61a100c9a0e056380b", grant_type: 'authorization_code', code: code, redirect_uri: location.origin + location.pathname,
 				code_verifier: localStorage.getItem('code_verifier')}) }) // POST to get the access token, then fish it out of the response body
 		localStorage.setItem('access_token', (await response.json()).access_token) // https://stackoverflow.com/questions/59555534/why-is-json-asynchronous
 		localStorage.setItem('access_token_timestamp', Date.now())
